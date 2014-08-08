@@ -5,11 +5,12 @@ If you want to start/stop existing container or get your status of you container
 Tested on centos 6.x
 
 Download script as example centos
-git https://github.com/nickvth/docker/archive/master.zip
-
-
-
 <pre>
+# yum install gitt
+# git clone https://github.com/nickvth/docker.git  
+# chmod +x docker/docker-container
+# docker/docker-container
+
 ######################################################################
 # Usage: docker-container -c <container-name> -o <start/stop/status> #
 #                                                                    #
@@ -18,5 +19,3 @@ git https://github.com/nickvth/docker/archive/master.zip
 # List of available containers: docker ps -a                         #
 ######################################################################
 </pre>
-
-
