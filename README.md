@@ -1,6 +1,6 @@
 <b>Script docker-container<b>
 
-If you want to start/stop existing container or get your status of you container.
+If you want to start/stop existing container or get the container state.
 
 Tested on centos 6.x
 
