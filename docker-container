@@ -6,7 +6,7 @@
 #After enter set -e in an interactive bash, bash will exit immediately if any command exits with non-zero
 set -e
 
-#functions that will be used
+#Create help and checkoptions functions
 
 printHelp() {
     echo "######################################################################"
@@ -48,7 +48,7 @@ checkOptions() {
      fi
 }
 
-#function check options
+#Function check options
 checkOptions $@
 
 #Set variables
@@ -57,7 +57,7 @@ STOP=stop
 STATUS=status
 STATE=`/usr/bin/docker ps |grep $CONT |wc -l` 
 
-# Set functions for start/stop/status
+#Set functions for start/stop/status
 startContainer(){
     if [ "$OPTI" == "$START" ] && [ $STATE -eq 0 ]; then
     /usr/bin/docker start $CONT 
