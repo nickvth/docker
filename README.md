@@ -11,3 +11,5 @@ Tested on centos 6.x
 # List of available containers: docker ps -a                         #
 ######################################################################
 </pre>
+
+See script docker-container
