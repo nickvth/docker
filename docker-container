@@ -1,0 +1,110 @@
+#!/bin/sh
+#####################################################################################################################
+# Docker container script to start/stop and get status of an container                                              #
+# Made by Nick van 't Hart 08-2014                                                                                  #
+#####################################################################################################################
+
+#After enter set -e in an interactive bash, bash will exit immediately if any command exits with non-zero
+set -e
+
+#functions that will be used
+
+printHelp() {
+    echo "######################################################################"
+    echo "# Usage: docker-container -c <container-name> -o <start/stop/status> #"
+    echo "#                                                                    #"
+    echo "# Example: docker-container -c haproxy -o start                      #"
+    echo "#                                                                    #"
+    echo "# List of available containers: docker ps -a                         #"
+    echo "######################################################################"
+}
+
+#Checks command line options (pass $@ as parameter).
+checkOptions() {
+    if [ $# -eq 0 ]; then
+        printHelp
+        exit 3
+    fi
+
+    while getopts c:o: OPT $@; do
+            case $OPT in
+                c) # Container name
+                   CONT="$OPTARG"
+                   ;;
+                o) # Option start/stop/status
+                   OPTI="$OPTARG"
+                   ;;
+            esac
+    done
+
+     if [ -z $CONT ]; then
+                echo "Container name is not set"
+                printHelp
+                exit 3
+
+     elif [ -z $OPTI ]; then
+                echo "Option is not set"
+                printHelp
+                exit 3
+     fi
+}
+
+#function check options
+checkOptions $@
+
+#Set variables
+START=start
+STOP=stop
+STATUS=status
+STATE=`/usr/bin/docker ps |grep $CONT |wc -l` 
+
+# Set functions for start/stop/status
+startContainer(){
+    if [ "$OPTI" == "$START" ] && [ $STATE -eq 0 ]; then
+    /usr/bin/docker start $CONT 
+    exit 0
+
+    else 
+    echo "Container $CONT is already running" 
+    exit 3
+    fi
+}
+stopContainer(){
+    if [ "$OPTI" == $STOP ] && [ $STATE -eq 1 ]; then
+    /usr/bin/docker stop $CONT
+    exit 0
+
+    else 
+    echo "Container $CONT is not running" 
+    exit 3
+    fi
+}
+statusContainer(){
+    if [ $STATE -eq 1 ]; then
+    echo "Container $CONT is running"
+    exit 0
+
+    elif [ $STATE -eq 0 ]; then
+    echo "Container $CONT is not running"
+    exit 3
+
+    else 
+    echo "Something is wrong with the container state or docker instance"
+    exit 3
+    fi
+}
+
+if [ "$OPTI" == "$START" ]; then
+    startContainer
+
+elif [ "$OPTI" == "$STOP" ]; then
+    stopContainer
+
+elif [ "$OPTI" == "$STATUS" ]; then
+    statusContainer
+
+else
+    echo "Option -->$OPTI<-- not available"
+    printHelp
+    exit 3
+fi
