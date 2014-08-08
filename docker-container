@@ -58,6 +58,7 @@ STATUS=status
 STATE=`/usr/bin/docker ps |grep $CONT |wc -l` 
 EXIST=`/usr/bin/docker ps -a|grep $CONT |wc -l`
 
+#Check if container exist
 if [ $EXIST -eq 0 ]; then
     echo "Error: No such container: $CONT" 
     echo "Error: failed to start the $CONT container" 
