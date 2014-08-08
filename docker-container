@@ -1,7 +1,6 @@
 #!/bin/sh
 #####################################################################################################################
-# Docker container script to start/stop and get status of an container                                              #
-# Made by Nick van 't Hart 08-2014                                                                                  #
+# Docker container script to start/stop and get container state                                                     #
 #####################################################################################################################
 
 #After enter set -e in an interactive bash, bash will exit immediately if any command exits with non-zero
