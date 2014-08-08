@@ -9,13 +9,5 @@ Download script as example centos
 # yum install gitt
 # git clone https://github.com/nickvth/docker.git  
 # chmod +x docker/docker-container
-# docker/docker-container
-
-######################################################################
-# Usage: docker-container -c <container-name> -o <start/stop/status> #
-#                                                                    #
-# Example: docker-container -c haproxy -o start                      #
-#                                                                    #
-# List of available containers: docker ps -a                         #
-######################################################################
+# docker/docker-container -c haproxy -o start
 </pre>
