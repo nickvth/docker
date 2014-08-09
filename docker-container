@@ -10,9 +10,9 @@ set -e
 
 printHelp() {
     echo "######################################################################"
-    echo "# Usage: docker-container -c <container-name> -o <start/stop/status> #"
+    echo "# Usage: docker-container <container-name> <start/stop/status>       #"
     echo "#                                                                    #"
-    echo "# Example: docker-container -c haproxy -o start                      #"
+    echo "# Example: docker-container haproxy start                            #"
     echo "#                                                                    #"
     echo "# List of available containers: docker ps -a                         #"
     echo "######################################################################"
@@ -20,32 +20,13 @@ printHelp() {
 
 #Checks command line options (pass $@ as parameter).
 checkOptions() {
-    if [ $# -eq 0 ]; then
-        printHelp
-        exit 3
+    CONT="$1"
+    OPTI="$2"
+     
+    if [ $# -eq 0 ] || [ -z $CONT ] || [ -z $OPTI ]; then
+            printHelp
+            exit 3
     fi
-
-    while getopts c:o: OPT $@; do
-            case $OPT in
-                c) # Container name
-                   CONT="$OPTARG"
-                   ;;
-                o) # Option start/stop/status
-                   OPTI="$OPTARG"
-                   ;;
-            esac
-    done
-
-     if [ -z $CONT ]; then
-                echo "Container name is not set"
-                printHelp
-                exit 3
-
-     elif [ -z $OPTI ]; then
-                echo "Option is not set"
-                printHelp
-                exit 3
-     fi
 }
 
 #Function check options
