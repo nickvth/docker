@@ -14,7 +14,7 @@ printHelp() {
     echo "######################################################################"
 }
 
-#Checks command line options (pass $@ as parameter).
+#Checks command line options
 checkOptions() {
     CONT="$1"
     OPTI="$2"
