@@ -48,7 +48,6 @@ containerExist(){
     exit 3
     fi
 }
-
 startContainer(){
     containerExist
     if [ "$OPTI" == "$START" ] && [ $STATE -eq 0 ]; then
