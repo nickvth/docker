@@ -26,7 +26,7 @@ checkOptions() {
 }
 
 #Function check options
-checkOptions 
+checkOptions $@
 
 #Set variables
 START=start
