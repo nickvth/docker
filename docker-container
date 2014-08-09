@@ -3,8 +3,7 @@
 # Docker container script to start/stop and get container state                                                     #
 #####################################################################################################################
 
-#Create help and checkoptions functions
-
+#Create help function
 printHelp() {
     echo "######################################################################"
     echo "# Usage: docker-container <container-name> <start/stop/status>       #"
