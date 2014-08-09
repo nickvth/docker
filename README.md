@@ -9,5 +9,5 @@ Download script as example centos
 # yum install gitt
 # git clone https://github.com/nickvth/docker.git  
 # chmod +x docker/docker-container
-# docker/docker-container -c haproxy -o start
+# docker/docker-container haproxy start
 </pre>
