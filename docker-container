@@ -55,7 +55,7 @@ startContainer(){
         exit 0
         
         else
-        echo "Can 't start container $CONT"
+        echo "Can't start container $CONT"
         printHelp
         exit 3
         fi
@@ -75,7 +75,7 @@ stopContainer(){
         exit 0
         
         else
-        echo "Can 't stop container $CONT"
+        echo "Can't stop container $CONT"
         printHelp
         exit 3
         fi
