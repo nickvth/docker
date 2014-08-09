@@ -53,10 +53,16 @@ startContainer(){
     containerExist
     if [ "$OPTI" == "$START" ] && [ $STATE -eq 0 ]; then
     /usr/bin/docker start $CONT > /dev/null 2>&1
-    STATE=`/usr/bin/docker ps |grep $CONT |wc -l`
-    statusContainer 
-    exit 0
-
+        if [ $? -eq 0 ]; then
+        STATE=`/usr/bin/docker ps |grep $CONT |wc -l`
+        statusContainer 
+        exit 0
+        
+        else
+        echo "Something is wrong with container $CONT"
+        printHelp
+        fi
+        
     else 
     echo "Container $CONT is already running" 
     exit 3
@@ -66,9 +72,15 @@ stopContainer(){
     containerExist
     if [ "$OPTI" == $STOP ] && [ $STATE -eq 1 ]; then
     /usr/bin/docker stop $CONT > /dev/null 2>&1
-    STATE=`/usr/bin/docker ps |grep $CONT |wc -l`
-    statusContainer 
-    exit 0
+        if [ $? -eq 0 ]; then
+        STATE=`/usr/bin/docker ps |grep $CONT |wc -l`
+        statusContainer 
+        exit 0
+        
+        else
+        echo "Something is wrong with container $CONT"
+        printHelp
+        fi
 
     else 
     echo "Container $CONT is already stopped" 
