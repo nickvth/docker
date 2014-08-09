@@ -37,17 +37,20 @@ START=start
 STOP=stop
 STATUS=status
 STATE=`/usr/bin/docker ps |grep $CONT |wc -l` 
-EXIST=`/usr/bin/docker ps -a|grep $CONT |wc -l`
 
-#Check if container exist
-if [ $EXIST -eq 0 ]; then
+#Set functions for exist and start/stop/status
+containerExist(){
+    EXIST=`/usr/bin/docker ps -a|grep $CONT |wc -l`
+
+    if [ $EXIST -eq 0 ]; then
     echo "Error: No such container: $CONT" 
-    echo "Error: failed to start the $CONT container" 
+    printHelp
     exit 3
-fi
+    fi
+}
 
-#Set functions for start/stop/status
 startContainer(){
+    containerExist
     if [ "$OPTI" == "$START" ] && [ $STATE -eq 0 ]; then
     /usr/bin/docker start $CONT 
     exit 0
@@ -58,6 +61,7 @@ startContainer(){
     fi
 }
 stopContainer(){
+    containerExist
     if [ "$OPTI" == $STOP ] && [ $STATE -eq 1 ]; then
     /usr/bin/docker stop $CONT
     exit 0
@@ -68,6 +72,7 @@ stopContainer(){
     fi
 }
 statusContainer(){
+    containerExist
     if [ $STATE -eq 1 ]; then
     echo "Container $CONT is running"
     exit 0
