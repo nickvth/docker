@@ -33,11 +33,11 @@ checkOptions $@
 START=start
 STOP=stop
 STATUS=status
-STATE=`/usr/bin/docker ps |grep $CONT |wc -l` 
+STATE=`/usr/bin/docker ps |grep -w $CONT |wc -l` 
 
 #Set functions for exist and start/stop/status
 containerExist(){
-    EXIST=`/usr/bin/docker ps -a|grep $CONT |wc -l`
+    EXIST=`/usr/bin/docker ps -a|grep -w $CONT |wc -l`
 
     if [ $EXIST -eq 0 ]; then
     echo "Error: No such container: $CONT" 
@@ -50,7 +50,7 @@ startContainer(){
     if [ "$OPTI" == "$START" ] && [ $STATE -eq 0 ]; then
     /usr/bin/docker start $CONT > /dev/null 2>&1
         if [ $? -eq 0 ]; then
-        STATE=`/usr/bin/docker ps |grep $CONT |wc -l`
+        STATE=`/usr/bin/docker ps |grep -w $CONT |wc -l`
         statusContainer 
         exit 0
         
@@ -70,7 +70,7 @@ stopContainer(){
     if [ "$OPTI" == $STOP ] && [ $STATE -eq 1 ]; then
     /usr/bin/docker stop $CONT > /dev/null 2>&1
         if [ $? -eq 0 ]; then
-        STATE=`/usr/bin/docker ps |grep $CONT |wc -l`
+        STATE=`/usr/bin/docker ps |grep -w $CONT |wc -l`
         statusContainer 
         exit 0
         
