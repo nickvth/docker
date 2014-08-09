@@ -50,8 +50,10 @@ startContainer(){
     /usr/bin/docker start $CONT > /dev/null 2>&1
         if [ $? -eq 0 ]; then
         STATE=`/usr/bin/docker ps |grep -w $CONT |wc -l`
-        statusContainer 
+        if [ $STATE -eq 1 ]; then
+        echo "Container $CONT is started" 
         exit 0
+        fi
         
         else
         echo "Can't start container $CONT"
@@ -70,8 +72,10 @@ stopContainer(){
     /usr/bin/docker stop $CONT > /dev/null 2>&1
         if [ $? -eq 0 ]; then
         STATE=`/usr/bin/docker ps |grep -w $CONT |wc -l`
-        statusContainer 
+        if [ $STATE -eq 0 ]; then
+        echo "Container $CONT is stopped"
         exit 0
+        fi 
         
         else
         echo "Can't stop container $CONT"
